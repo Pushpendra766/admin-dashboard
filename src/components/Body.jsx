@@ -146,7 +146,7 @@ const Body = () => {
                   <div className="flex gap-2">
                     {editId === employee.id ? (
                       <button
-                        className="p-2 rounded-md border border-blue-500 save"
+                        className="p-2 rounded-md border border-green-600 text-green-600 save"
                         onClick={() => {
                           setFilteredEmployees(
                             editEmployeeDetails(
@@ -164,7 +164,7 @@ const Body = () => {
                       </button>
                     ) : (
                       <button
-                        className="p-2 rounded-md border border-blue-500 edit"
+                        className="p-2 rounded-md border border-blue-700 edit text-blue-700"
                         onClick={() => {
                           setEditId(employee.id);
                           setNewName(employee.name);
