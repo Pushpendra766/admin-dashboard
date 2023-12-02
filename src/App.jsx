@@ -4,7 +4,6 @@ import Try from "./components/Try";
 function App() {
   return (
     <div>
-      {/* <Try /> */}
       <Body />
     </div>
   );
