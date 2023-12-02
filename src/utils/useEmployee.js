@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export const useEmployee = () => {
   const [employees, setEmployees] = useState(null);
   useEffect(() => {
-    setTimeout(fetchEmplyees, 500);
+    setTimeout(fetchEmplyees, 500); //to see shimmer effect
     // fetchEmplyees();
   }, []);
   async function fetchEmplyees() {
