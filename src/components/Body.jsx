@@ -9,7 +9,7 @@ const Body = () => {
   const employees = useEmployee();
   const [searchText, setSearchText] = useState("");
   return (
-    <div className="my-8 sm:mx-60 flex flex-col gap-8">
+    <div className="my-8 mx-4 md:mx-16 lg:mx-40 xl:mx-60 flex flex-col gap-8">
       <div className="flex justify-between">
         <input
           className="border pl-3 p-1 rounded-md"
@@ -22,13 +22,13 @@ const Body = () => {
           <MdDelete />
         </button>
       </div>
-      <Pagination />
+
       {!employees ? (
         <Shimmer />
       ) : (
         <div className="border rounded-md">
           <div className="flex justify-between px-4 py-3 bg-gray-200 font-semibold">
-            <input type="radio" />
+            <input type="radio" className="h-4 w-4 mt-2" />
             <p>Name</p>
             <p>Email</p>
             <p>Role</p>
@@ -40,7 +40,7 @@ const Body = () => {
                 className="flex justify-between p-4 border-t hover:bg-gray-100 hover:cursor-pointer"
                 key={employee.id}
               >
-                <input type="radio" />
+                <input type="radio" className="h-4 w-4 mt-2" />
                 <p>{employee.name}</p>
                 <p>{employee.email}</p>
                 <p>{employee.role}</p>
@@ -57,6 +57,7 @@ const Body = () => {
           })}
         </div>
       )}
+      <Pagination />
     </div>
   );
 };

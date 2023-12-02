@@ -9,11 +9,13 @@ import {
 const Pagination = () => {
   const btnStyle = "border py-1 px-2 rounded-md hover:bg-gray-100";
   return (
-    <div className="flex justify-between items-center">
-      <div>0 of 46 row(s) selected</div>
-      <div className="flex gap-4 items-center">
+    <div className="md:flex justify-between items-center">
+      <div className="flex gap-20 md:gap-10">
+        <div>0 of 46 row(s) selected</div>
         <p>Page 1 of 5</p>
-        <div className="flex gap-4">
+      </div>
+      <div className="flex gap-4 items-center">
+        <div className="flex gap-2">
           <button className={btnStyle}>
             <MdKeyboardDoubleArrowLeft />
           </button>
