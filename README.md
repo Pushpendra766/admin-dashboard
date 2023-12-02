@@ -5,7 +5,7 @@ The Admin Dashboard is a tool designed for administrators to manage and interact
 
 | Key | Value    | 
 | :---:   | :---: | 
-| Live Preview | [Vercel Deploy](https://admin-dashboard766.netlify.app/) | 
+| Live Preview | [Netlify Deploy](https://admin-dashboard766.netlify.app/) | 
 | Demo Video  | [Youtube Video](https://youtu.be/BW8_Y4v6_I0) | 
 
 ## Tech Stack
