@@ -8,6 +8,13 @@ export function searchEmployees(searchText, employees) {
   return filtered;
 }
 
+export function deleteSelected(selectedEmployees, filteredEmployees) {
+  const remaining = filteredEmployees.filter(
+    (employee) => !selectedEmployees.includes(employee.id)
+  );
+  return remaining;
+}
+
 export function deleteEmployee(id, filteredEmployees) {
   const filtered = filteredEmployees.filter((employee) => employee.id !== id);
   return filtered;

@@ -8,10 +8,13 @@ import {
   searchEmployees,
   deleteEmployee,
   editEmployeeDetails,
+  deleteSelected,
 } from "../utils/helper";
 import Header from "./Header";
+import useOnline from "../utils/useOnline";
 
 const Body = () => {
+  const isOnline = useOnline();
   const employees = useEmployee();
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -20,13 +23,27 @@ const Body = () => {
   const [newEmail, setNewEmail] = useState();
   const [newRole, setNewRole] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  
+  const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [isSelectAll, setIsSelectAll] = useState(false);
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       setFilteredEmployees(searchEmployees(searchText, employees));
     }
   }
+
+  const handleSelectAll = () => {
+    if (!isSelectAll) {
+      const empIdsToAdd = filteredEmployees
+        .slice((currentPage - 1) * 10, (currentPage - 1) * 10 + 10)
+        .map((emp) => emp.id);
+      setSelectedEmployees(empIdsToAdd);
+      setIsSelectAll(true);
+    } else {
+      setSelectedEmployees([]);
+      setIsSelectAll(false);
+    }
+  };
 
   const updateSearchText = (text) => {
     setSearchText(text);
@@ -52,29 +69,54 @@ const Body = () => {
         handleKeyDown={handleKeyDown}
         updateFilteredEmployees={updateFilteredEmployees}
       />
+      {!isOnline && <h1>Check your internet connection</h1>}
       {!filteredEmployees ? (
         <Shimmer />
       ) : (
         <div className="border rounded-md">
           <div className="flex justify-between px-4 py-3 bg-gray-200 font-semibold">
-            <input type="radio" className="h-4 w-4 mt-2" />
+            <input
+              type="checkbox"
+              className="h-4 w-4 mt-2"
+              checked={isSelectAll}
+              onChange={handleSelectAll}
+            />
             <p>Name</p>
             <p>Email</p>
             <p>Role</p>
             <p>Action</p>
           </div>
           {filteredEmployees.length === 0 && (
-            <p className="p-3 text-center">No result found</p>
+            <p className="p-3 text-center">No data found</p>
           )}
           {filteredEmployees
             .slice((currentPage - 1) * 10, currentPage * 10)
             .map((employee) => {
+              const isChecked = selectedEmployees.includes(employee.id);
               return (
                 <div
-                  className="flex justify-between p-4 border-t hover:bg-gray-100 hover:cursor-pointer"
+                  className={`flex justify-between p-4 border-t border-gray-300 hover:bg-gray-100 hover:cursor-pointer ${
+                    isChecked && "bg-blue-100"
+                  }`}
                   key={employee.id}
                 >
-                  <input type="radio" className="h-4 w-4 mt-2" />
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 mt-2"
+                    checked={isChecked}
+                    onChange={() => {
+                      isChecked
+                        ? setSelectedEmployees((prevSelectedEmployees) =>
+                            prevSelectedEmployees.filter(
+                              (empId) => empId !== employee.id
+                            )
+                          )
+                        : setSelectedEmployees((prev) => [
+                            ...prev,
+                            employee.id,
+                          ]);
+                    }}
+                  />
                   {editId === employee.id ? (
                     <input
                       type="text"
@@ -150,15 +192,29 @@ const Body = () => {
             })}
         </div>
       )}
-      <button className="bg-red-500 text-white w-40 rounded-md py-1">
-        Delete Selected
-      </button>
+      {selectedEmployees.length !== 0 && (
+        <button
+          className="bg-red-500 text-white w-40 rounded-md py-1"
+          onClick={() => {
+            setFilteredEmployees(
+              deleteSelected(selectedEmployees, filteredEmployees)
+            );
+            setSelectedEmployees([]);
+            setIsSelectAll(false);
+          }}
+        >
+          Delete Selected
+        </button>
+      )}
+
       <Pagination
         currentPage={currentPage}
         lastPage={
           !filteredEmployees ? 0 : parseInt(filteredEmployees.length / 10) + 1
         }
         updateCurrentPage={updateCurrentPage}
+        selectedEmployees={selectedEmployees.length}
+        totalEmployees={!filteredEmployees ? 0 : filteredEmployees.length}
       />
     </div>
   );

@@ -6,12 +6,20 @@ import {
   MdKeyboardArrowRight,
 } from "react-icons/md";
 
-const Pagination = ({ currentPage, lastPage, updateCurrentPage }) => {
+const Pagination = ({
+  currentPage,
+  lastPage,
+  updateCurrentPage,
+  selectedEmployees,
+  totalEmployees,
+}) => {
   const btnStyle = "border py-1 px-2 rounded-md hover:bg-gray-100";
   return (
     <div className="md:flex justify-between items-center">
       <div className="flex gap-20 md:gap-10">
-        <div>0 of 46 row(s) selected</div>
+        <div>
+          {selectedEmployees} of {totalEmployees} row(s) selected
+        </div>
         <p>
           Page {currentPage} of {lastPage}
         </p>
