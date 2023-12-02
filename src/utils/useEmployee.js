@@ -13,5 +13,5 @@ export const useEmployee = () => {
     const data = await res.json();
     setEmployees(data);
   }
-  return employees;
+  return [employees, setEmployees];
 };

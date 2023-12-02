@@ -15,7 +15,7 @@ import useOnline from "../utils/useOnline";
 
 const Body = () => {
   const isOnline = useOnline();
-  const employees = useEmployee();
+  const [employees, setEmployees] = useEmployee();
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [editId, setEditId] = useState(-1);
@@ -57,6 +57,10 @@ const Body = () => {
     setFilteredEmployees(emps);
   };
 
+  const updateEmployees = (emps) => {
+    setEmployees(emps);
+  };
+
   useEffect(() => {
     setFilteredEmployees(employees);
   }, [employees]);
@@ -67,6 +71,7 @@ const Body = () => {
         searchText={searchText}
         updateSearchText={updateSearchText}
         handleKeyDown={handleKeyDown}
+        updateEmployees={updateEmployees}
         updateFilteredEmployees={updateFilteredEmployees}
       />
       {!isOnline && <h1>Check your internet connection</h1>}
@@ -148,15 +153,16 @@ const Body = () => {
                       <button
                         className="p-2 rounded-md border border-green-600 text-green-600 save"
                         onClick={() => {
-                          setFilteredEmployees(
+                          setEmployees(
                             editEmployeeDetails(
                               employee.id,
                               newName,
                               newEmail,
                               newRole,
-                              filteredEmployees
+                              employees
                             )
                           );
+                          setFilteredEmployees(employees);
                           setEditId(-1);
                         }}
                       >
@@ -179,9 +185,8 @@ const Body = () => {
                     <button
                       className="p-2 rounded-md text-red-500 border border-red-500 delete"
                       onClick={() => {
-                        setFilteredEmployees(
-                          deleteEmployee(employee.id, filteredEmployees)
-                        );
+                        setEmployees(deleteEmployee(employee.id, employees));
+                        setFilteredEmployees(employees);
                       }}
                     >
                       <MdDeleteOutline />
@@ -196,9 +201,8 @@ const Body = () => {
         <button
           className="bg-red-500 text-white w-40 rounded-md py-1"
           onClick={() => {
-            setFilteredEmployees(
-              deleteSelected(selectedEmployees, filteredEmployees)
-            );
+            setEmployees(deleteSelected(selectedEmployees, employees));
+            setFilteredEmployees(employees);
             setSelectedEmployees([]);
             setIsSelectAll(false);
           }}

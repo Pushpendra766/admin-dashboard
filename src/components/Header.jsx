@@ -5,8 +5,13 @@ const Header = ({
   searchText,
   updateSearchText,
   handleKeyDown,
+  updateEmployees,
   updateFilteredEmployees,
 }) => {
+  const handleDelete = () => {
+    updateEmployees([]);
+    updateFilteredEmployees([]);
+  };
   return (
     <div className="flex justify-between">
       <input
@@ -19,7 +24,7 @@ const Header = ({
       />
       <button
         className="bg-red-500 hover:bg-red-600 p-2 rounded-md text-white"
-        onClick={() => updateFilteredEmployees([])}
+        onClick={handleDelete}
       >
         <MdDelete />
       </button>
