@@ -1,5 +1,4 @@
 import Body from "./components/Body";
-import Try from "./components/Try";
 
 function App() {
   return (
