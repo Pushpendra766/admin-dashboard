@@ -63,6 +63,7 @@ const TableBody = ({
               )}
               {editId === employee.id ? (
                 <select onChange={(e) => setNewRole(e.target.value)}>
+                  <option value="">Select Role </option>
                   <option value="admin">admin</option>
                   <option value="member">member</option>
                 </select>
