@@ -14,6 +14,9 @@ const Pagination = ({
   totalEmployees,
 }) => {
   const btnStyle = "border py-1 px-2 rounded-md hover:bg-gray-100";
+  if (currentPage > lastPage) {
+    updateCurrentPage(lastPage);
+  }
   return (
     <div className="md:flex justify-between items-center">
       <div className="flex gap-20 md:gap-10">
@@ -27,13 +30,13 @@ const Pagination = ({
       <div className="flex gap-4 items-center">
         <div className="flex gap-2">
           <button
-            className={btnStyle + "first-page"}
+            className={`first-page ${btnStyle}`}
             onClick={() => updateCurrentPage(1)}
           >
             <MdKeyboardDoubleArrowLeft />
           </button>
           <button
-            className={btnStyle + "previous-page"}
+            className={`previous-page ${btnStyle}`}
             onClick={() =>
               updateCurrentPage(currentPage > 1 ? currentPage - 1 : 1)
             }
@@ -56,7 +59,7 @@ const Pagination = ({
               );
             })}
           <button
-            className={btnStyle + "next-page"}
+            className={`next-page ${btnStyle}`}
             onClick={() =>
               updateCurrentPage(
                 currentPage < lastPage ? currentPage + 1 : lastPage
@@ -66,7 +69,7 @@ const Pagination = ({
             <MdKeyboardArrowRight />
           </button>
           <button
-            className={btnStyle + "last-page"}
+            className={`last-page ${btnStyle}`}
             onClick={() => updateCurrentPage(lastPage)}
           >
             <MdKeyboardDoubleArrowRight />

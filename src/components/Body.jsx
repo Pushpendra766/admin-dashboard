@@ -85,7 +85,7 @@ const Body = () => {
         currentPage={currentPage}
         lastPage={
           !filteredEmployees
-            ? 0
+            ? 1
             : parseInt((filteredEmployees.length - 1) / 10) + 1
         }
         updateCurrentPage={(pageNumber) => setCurrentPage(pageNumber)}
