@@ -84,7 +84,9 @@ const Body = () => {
       <Pagination
         currentPage={currentPage}
         lastPage={
-          !filteredEmployees ? 0 : parseInt(filteredEmployees.length / 10) + 1
+          !filteredEmployees
+            ? 0
+            : parseInt((filteredEmployees.length - 1) / 10) + 1
         }
         updateCurrentPage={(pageNumber) => setCurrentPage(pageNumber)}
         selectedEmployees={selectedEmployees.length}
