@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
+import { EMPLOYEE_API_URL } from "../constants";
 
 export const useEmployee = () => {
   const [employees, setEmployees] = useState(null);
   useEffect(() => {
-    setTimeout(fetchEmplyees, 500); //to see shimmer effect
-    // fetchEmplyees();
+    fetchEmplyees();
   }, []);
   async function fetchEmplyees() {
-    const res = await fetch(
-      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json"
-    );
+    const res = await fetch(EMPLOYEE_API_URL);
     const data = await res.json();
     setEmployees(data);
   }
