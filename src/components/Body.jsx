@@ -88,7 +88,7 @@ const Body = () => {
         }
         updateCurrentPage={(pageNumber) => setCurrentPage(pageNumber)}
         selectedEmployees={selectedEmployees.length}
-        totalEmployees={!filteredEmployees ? 0 : filteredEmployees.length}
+        totalEmployees={!employees ? 0 : employees.length}
       />
     </div>
   );
